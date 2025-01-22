@@ -22,7 +22,7 @@ def create():
         data = request.form # pega os dados do usuário
         hashed_password = generate_password_hash(data['password'])
         is_admin = True if data['is_admin'] == 'on' else False
-        user = User(name=data['name'], email=data['email'], password=hashed_password, is_admin=data['is_admin']) # cria um novo usuário
+        user = User(name=data['name'], email=data['email'], password=hashed_password, is_admin=is_admin) # cria um novo usuário
         db.session.add(user) 
         db.session.commit() # salva as alterações no banco de dados
         login_user(user) 
