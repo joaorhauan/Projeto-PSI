@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    | Login
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center mt-5">Logar Usuário</h1>
+
+<form action="{{url_for('user_bp.login')}}" method="post" class="container mt-4">
+    <div class="mb-3">
+        <label for="email" class="form-label">Email:</label>
+        <input type="email" name="email" placeholder="Email" class="form-control border border-primary">
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Senha:</label>
+        <input type="password" name="password" placeholder="Senha" class="form-control border border-primary">
+    </div>
+    <button type="submit" class="btn btn-primary">Logar</button>
+</form>
+
+<p class="text-center mt-3">Não tem uma conta? <a href="{{url_for('user_bp.create')}}" class="link-primary">Criar conta</a></p>
+{% endblock %}
