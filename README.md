@@ -6,7 +6,7 @@ O projeto é uma aplicação web para gerenciamento de usuários.
 
 ## Como iniciar o projeto (windows)
 
- python -m venv venv <br \>
+ python -m venv venv  
  \venv\Scripts\activate <br />
  pip install -r requirements.txt <br />
  python run.py
