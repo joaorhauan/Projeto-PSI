@@ -19,14 +19,21 @@ def index():
 @user_bp.route('/create', methods=['GET', 'POST'])
 def create():
     if request.method == 'POST':
+
         data = request.form # pega os dados do usuário
+
+        if User.query.filter_by(email=data['email']).first():
+            flash('Email já cadastrado')
+            return redirect(url_for('user_bp.create'))
+
+        
         hashed_password = generate_password_hash(data['password'])
-        is_admin = True if data['is_admin'] == 'on' else False
+        is_admin = data.get('is_admin') == 'on' # verifica se o checkbox está de admin está marcado, se sim define como true
         user = User(name=data['name'], email=data['email'], password=hashed_password, is_admin=is_admin) # cria um novo usuário
         db.session.add(user) 
         db.session.commit() # salva as alterações no banco de dados
         login_user(user) 
-        return render_template('index.html')
+        return redirect(url_for('home_bp.index'))
     else:
         return render_template('user/create.html') 
 
@@ -39,7 +46,8 @@ def login():
             login_user(user)
             return redirect(url_for('home_bp.index'))
         else:
-            return flash('Usuário ou senha incorretos')
+            flash('Email ou senha incorretos')
+            return redirect(url_for('user_bp.login'))
     else:
         return render_template('user/login.html')
 
